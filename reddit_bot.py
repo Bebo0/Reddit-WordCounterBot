@@ -96,7 +96,7 @@ def parsePostTitles(reddit):
 	print "Successfully parsed post titles!"
 
 
-def run_bot(reddit):
+def runBot(reddit):
 	"""
 	Reddit -> void
 
@@ -112,7 +112,7 @@ def run_bot(reddit):
 def main():
 	
 	reddit = authenticate()
-	run_bot(reddit)
+	runBot(reddit)
 	print dictionary
 
 if __name__ == '__main__':
