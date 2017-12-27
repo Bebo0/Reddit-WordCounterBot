@@ -9,31 +9,29 @@ from collections import Counter
 
 # VARIABLES:
 subRedditName = 'cryptocurrency'
-dictionary = Counter()
+counter = Counter()
 
 
-def addArrToDictionary(aos):
-	"""
+def addArrToCounter(aos):
+	""" Adds the occurence of all strings in given array to counter
+
 	ArrayOfStrings -> void
 
-	Adds all strings in given array to dictionary
-
 	Arguments:
-		aos {ArrayOfStrings} -- contains all the words to be added to dictionary
+		aos {ArrayOfStrings} -- contains all the words to be added to counter
 	"""
 
 	for word in aos:
-		if word in dictionary:
-			dictionary[word] += 1
+		if word in counter:
+			counter[word] += 1
 		else:
-			dictionary[word] = 1
+			counter[word] = 1
 
 
 def authenticate():
-	"""
-	void -> Reddit
+	""" Logs us into Reddit and returns an object which allows us to interact with Reddit's API
 
-	Logs us into Reddit and returns an object which allows us to interact with Reddit's API
+	void -> Reddit
 	"""
 	print "Authenticating"
 	reddit = praw.Reddit('wordcounterbot',
@@ -43,10 +41,9 @@ def authenticate():
 
 
 def parseComments(reddit):
-	"""
+	""" Parses the first x number of comments that appear in a subreddit
+
 	Reddit -> void
-	
-	Parses the first x number of comments that appear in a subreddit
 	
 	Arguments:
 		reddit {Reddit} -- [the Reddit object that allows us to interact with Reddit's API]
@@ -64,28 +61,26 @@ def parseComments(reddit):
 
 
 def parsingHelper(strong):
-	"""
-	Splits strong into individual strings then adds them to the dictionary 
+	""" Splits strong into individual strings then adds them to the counter 
 	
 	"""
 	allowedSymbols = string.letters + string.digits + ' ' + '\'' + '-'
 	aos = re.sub('[^%s]' % allowedSymbols,'',strong)
 	aos = aos.split()
-	addArrToDictionary(aos)
+	addArrToCounter(aos)
 
 
 def parsePostTitles(reddit):
-	"""
+	""" Parses all post titles from dateInitial to dateEnd in the given subreddit
+
 	Reddit -> void
-	
-	Parses all post titles from dateInitial to dateEnd in the given subreddit
 	
 	Arguments:
 		reddit {Reddit} -- [the Reddit object that allows us to interact with Reddit's API]
 	"""
 	
 	print "Parsing post titles..."
-	dateInitial = 1514178600 #December 25th, 2017 9:10pm PST. Convert time to UNIX time here: https://www.unixtimestamp.com/
+	dateInitial = 1514078600 #December 25th, 2017 9:10pm PST. Convert time to UNIX time here: https://www.unixtimestamp.com/
 	dateEnd     = 1514265000 #December 26th, 2017 9:10pm PST
 
 	for comment in reddit.subreddit(subRedditName).submissions(dateInitial, dateEnd):
@@ -97,15 +92,15 @@ def parsePostTitles(reddit):
 
 
 def runBot(reddit):
-	"""
+	""" Parses comments and titles
 	Reddit -> void
 
-	Parses the comments and titles in the given subreddit, and adds certain strings found to dictionary.
+	Parses the comments and titles in the given subreddit, and adds the occurence of certain strings found to counter.
 		
 	Arguments:
 		reddit {Reddit} -- [the Reddit object that allows us to interact with Reddit's API]
 	"""
-	parseComments(reddit)
+	#parseComments(reddit)
 	parsePostTitles(reddit)
 
 
@@ -113,7 +108,7 @@ def main():
 	
 	reddit = authenticate()
 	runBot(reddit)
-	print dictionary
+	print counter
 
 if __name__ == '__main__':
 	main()
