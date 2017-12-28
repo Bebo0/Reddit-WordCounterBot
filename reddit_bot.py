@@ -3,7 +3,8 @@ import string
 import re
 from collections import Counter
 
-# USAGE: 1) type in a Reddit username and password in the praw.ini folder
+# USAGE: 
+#        1) download PRAW. Follow instructions here: http://praw.readthedocs.io/en/latest/getting_started/installation.html 
 #        2) in terminal, cd to folder which contains project files
 #        3) type python reddit_bot.py
 
@@ -80,8 +81,8 @@ def parsePostTitles(reddit):
 	"""
 	
 	print "Parsing post titles..."
-	dateInitial = 1514364703 #1514078600 is December 25th, 2017 9:10pm PST. Convert time to UNIX time here: https://www.unixtimestamp.com/
-	dateEnd     = 1514408887 #1514265000 is December 26th, 2017 9:10pm PST
+	dateInitial = 1514408887 #1514078600 is December 25th, 2017 9:10pm PST. Convert time to UNIX time here: https://www.unixtimestamp.com/
+	dateEnd     = 1514453887  #1514265000 is December 26th, 2017 9:10pm PST
 
 	for comment in reddit.subreddit(subRedditName).submissions(dateInitial, dateEnd):
 

@@ -2,5 +2,6 @@
 
 
 # USAGE: 
-#        1) in terminal, cd to folder which contains project files
-#        2) type python reddit_bot.py
+#        1) download PRAW. Follow instructions here: http://praw.readthedocs.io/en/latest/getting_started/installation.html 
+#        2) in terminal, cd to folder which contains project files
+#        3) type python reddit_bot.py
