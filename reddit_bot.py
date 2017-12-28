@@ -11,7 +11,7 @@ from collections import Counter
 subRedditName = 'cryptocurrency'
 counter = Counter()
 
-
+# FUNCTIONS:
 def addArrToCounter(aos):
 	""" Adds the occurence of all strings in given array to counter
 
@@ -80,8 +80,8 @@ def parsePostTitles(reddit):
 	"""
 	
 	print "Parsing post titles..."
-	dateInitial = 1514078600 #December 25th, 2017 9:10pm PST. Convert time to UNIX time here: https://www.unixtimestamp.com/
-	dateEnd     = 1514265000 #December 26th, 2017 9:10pm PST
+	dateInitial = 1514364703 #1514078600 is December 25th, 2017 9:10pm PST. Convert time to UNIX time here: https://www.unixtimestamp.com/
+	dateEnd     = 1514408887 #1514265000 is December 26th, 2017 9:10pm PST
 
 	for comment in reddit.subreddit(subRedditName).submissions(dateInitial, dateEnd):
 
@@ -95,7 +95,7 @@ def runBot(reddit):
 	""" Parses comments and titles
 	Reddit -> void
 
-	Parses the comments and titles in the given subreddit, and adds the occurence of certain strings found to counter.
+	Parses the comments and/or titles in the given subreddit, and adds the occurence of certain strings found to counter.
 		
 	Arguments:
 		reddit {Reddit} -- [the Reddit object that allows us to interact with Reddit's API]
