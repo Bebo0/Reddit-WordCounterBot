@@ -2,24 +2,26 @@ import praw
 import string
 import re
 from collections import Counter
-#from Authenticator import authenticate
+from Authenticator import authenticate
 
 # USAGE: 
 #        1) download PRAW. Follow instructions here: http://praw.readthedocs.io/en/latest/getting_started/installation.html 
 #        2) in terminal, cd to folder which contains project files
 #        3) type python WordCounterBot.py
 
-# VARIABLES:
-#subRedditName = 'cryptocurrency'
-#counter = Counter()
-
 class WordCounterBot:
-	reddit = self.authenticate()
+
+	reddit = authenticate() #authenticate called here so that only 1 authentication occurs even if multiple objects are instantiated
 
 	# CONSTRUCTOR:
 	def __init__(self, subredditname):
+		"""constructs a WordCounterBot object
+		
+		Arguments:
+			subredditname {string} -- the subreddit being parsed
+		"""
 		self.subRedditName = subredditname
-		self.counter = Counter()
+		self.counter = Counter() 
 
     # FUNCTIONS:
 	def addArrToCounter(self, aos):
@@ -114,31 +116,11 @@ class WordCounterBot:
 		self.parsePostTitles(reddit)
 
 
-	# def run(self):
-		
-	# 	#reddit = authenticate()
-	# 	runBot(reddit)
-	# 	print counter
+def main():
 
-bot = WordCounterBot('cryptocurrency')
+	bot = WordCounterBot('cryptocurrency')
+	bot.runBot(WordCounterBot.reddit)
+	bot.counter
 
-#if __name__ == '__main__':
-bot.runBot(WordCounterBot.reddit)
-bot.counter
-
-bot2 = WordCounterBot('aww')
-bot2.runBot(WordCounterBot.reddit)
-bot.counter
-
-
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+	main()
