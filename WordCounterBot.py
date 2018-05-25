@@ -1,6 +1,7 @@
 import praw 
 import string
 import re
+import time
 from collections import Counter
 from Authenticator import authenticate
 
@@ -10,6 +11,9 @@ from Authenticator import authenticate
 #        3) type python WordCounterBot.py
 
 class WordCounterBot:
+	TIME_NOW         = int(time.time()) # epoch (UTC) time
+	TIME_24HOURS_AGO = int(time.time()) - 86400
+	TIME_7DAYS_AGO   = int(time.time()) - 86400*7
 
 	reddit = authenticate() #authenticate called here so that only 1 authentication occurs even if multiple objects are instantiated
 
@@ -92,10 +96,8 @@ class WordCounterBot:
 		"""
 		
 		print "Parsing post titles..."
-		dateInitial = 1514453887 #1514078600 is December 25th, 2017 9:10pm PST. Convert time to UNIX time here: https://www.unixtimestamp.com/
-		dateEnd     = 1514507792   #1514265000 is December 26th, 2017 9:10pm PST
 
-		for comment in reddit.subreddit(self.subRedditName).submissions(dateInitial, dateEnd):
+		for comment in reddit.subreddit(self.subRedditName).submissions(TIME_7DAYS_AGO, TIME_NOW):
 
 			strong = ''.join(comment.title).lower().encode('ascii','ignore')
 			self.parsingHelper(strong)
@@ -112,15 +114,15 @@ class WordCounterBot:
 		Arguments:
 			reddit {Reddit} -- [the Reddit object that allows us to interact with Reddit's API]
 		"""
-		#parseComments(reddit)
-		self.parsePostTitles(reddit)
+		self.parseComments(reddit)
+		# self.parsePostTitles(reddit)
 
 
 def main():
 
 	bot = WordCounterBot('cryptocurrency')
 	bot.runBot(WordCounterBot.reddit)
-	bot.counter
+	print bot.counter
 
 if __name__ == '__main__':
 	main()
